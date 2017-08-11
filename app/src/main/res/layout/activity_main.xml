@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context="com.example.administrator.testrecyclerview.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="header"
+        android:onClick="header"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="footer"
+        android:onClick="footer"/>
 
 
     <com.necer.nrecyclerview.NRecyclerView

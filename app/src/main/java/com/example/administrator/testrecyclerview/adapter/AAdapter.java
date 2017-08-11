@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.administrator.testrecyclerview.R;
+import com.necer.nrecyclerview.Logg;
+
 import java.util.List;
 
 /**
@@ -27,7 +29,6 @@ public class AAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item, parent,false);
-
         return new ItemViewHolder(view);
     }
 

@@ -6,9 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.administrator.testrecyclerview.adapter.AAdapter;
-import com.necer.nrecyclerview.NRecyclerView;
+import com.google.gson.Gson;
+import com.necer.nrecyclerview.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +27,9 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         List<String> list = new ArrayList<>();
 
-
-
-
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 4; i++) {
             list.add("iii::" + i);
         }
-
 
         recycler.setAdapter(new AAdapter(this,list));
 
@@ -43,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         View footer2 = LayoutInflater.from(this).inflate(R.layout.footer, null);
 
 
-
-
         recycler.addHeaderView(header);
         recycler.addHeaderView(header1);
         recycler.addHeaderView(header2);
@@ -52,13 +48,26 @@ public class MainActivity extends AppCompatActivity {
         recycler.addFooterView(footer);
         recycler.addFooterView(footer1);
         recycler.addFooterView(footer2);
-    }
 
-    private void set() {
 
-        ListView listView = new ListView(this);
-       // listView.setOnItemClickListener();
 
     }
+
+    public void header(View view) {
+        View header = LayoutInflater.from(this).inflate(R.layout.header, null);
+
+        TextView tv_header = (TextView) header.findViewById(R.id.tv_header);
+        tv_header.setText("头部：：" + recycler.getHeaderViewCount());
+        recycler.addHeaderView(header);
+    }
+    public void footer(View view) {
+        View footer = LayoutInflater.from(this).inflate(R.layout.footer, null);
+
+        TextView tv_footer = (TextView) footer.findViewById(R.id.tv_footer);
+        tv_footer.setText("脚部：：" + recycler.getFooterViewCount());
+
+        recycler.addFooterView(footer);
+    }
+
 
 }
