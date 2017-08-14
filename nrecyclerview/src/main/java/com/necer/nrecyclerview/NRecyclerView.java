@@ -45,37 +45,17 @@ public class NRecyclerView extends RecyclerView{
         init();
     }
 
-
-/*
-
-
-    final private AdapterDataObserver observer = new AdapterDataObserver() {
+    private AdapterDataObserver dataObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {
-            checkIfEmpty();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            checkIfEmpty();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            checkIfEmpty();
+            if (mEmptyView != null && mOldAdapter!= null) {
+                boolean emptyViewVisible = mOldAdapter.getItemCount() == 0;
+                mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
+                setVisibility(emptyViewVisible ? GONE : VISIBLE);
+            }
+            mAdapter.notifyDataSetChanged();
         }
     };
-    private void checkIfEmpty() {
-        if (mEmptyView != null && getAdapter() != null) {
-            final boolean emptyViewVisible =
-                    getAdapter().getItemCount() == 0;
-            mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
-            setVisibility(emptyViewVisible ? GONE : VISIBLE);
-        }
-    }
-*/
-
-
 
     private void init() {
         mHeaderSparseArray = new SparseArray();
@@ -96,21 +76,16 @@ public class NRecyclerView extends RecyclerView{
 
     @Override
     public void setAdapter(Adapter adapter) {
-
+        if (mOldAdapter != null) {
+            mOldAdapter.unregisterAdapterDataObserver(dataObserver);
+        }
         this.mOldAdapter = adapter;
-       /* final Adapter oldAdapter = getAdapter();
-        if (oldAdapter != null) {
-            oldAdapter.unregisterAdapterDataObserver(observer);
-        }*/
         mAdapter = new HeadFootAdapter(mHeaderSparseArray, mFooterSparseArray, adapter);
         super.setAdapter(mAdapter);
-       /* mAdapter.registerAdapterDataObserver(observer);
-        checkIfEmpty();*/
 
-
+        mOldAdapter.registerAdapterDataObserver(dataObserver);
+        dataObserver.onChanged();
     }
-
-
 
 
     @Override
@@ -132,12 +107,6 @@ public class NRecyclerView extends RecyclerView{
         super.setLayoutManager(layout);
     }
 
-    @Override
-    public Adapter getAdapter() {
-      //  return super.getAdapter();
-        return mAdapter;
-    }
-
     public int getHeaderViewCount() {
         return mHeaderSparseArray.size();
     }
@@ -148,9 +117,7 @@ public class NRecyclerView extends RecyclerView{
 
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
-        mEmptyView.setVisibility(VISIBLE);
-        setVisibility(GONE);
-
+        dataObserver.onChanged();
     }
 
     public View getEmptyView() {

@@ -3,6 +3,7 @@ package com.example.administrator.testrecyclerview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +20,24 @@ public class MainActivity extends AppCompatActivity {
 
     private NRecyclerView recycler;
 
+    private AAdapter aAdapter;
+    private List<String> list;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recycler = (NRecyclerView) findViewById(R.id.recycler);
-       // recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setLayoutManager(new GridLayoutManager(this, 5));
-      //  recycler.setLayoutManager(new StaggeredGridLayoutManager( 3,h));
-        List<String> list = new ArrayList<>();
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+       // recycler.setLayoutManager(new GridLayoutManager(this, 5));
+        list = new ArrayList<>();
 
         for (int i = 0; i < 40; i++) {
             list.add("iii::" + i);
         }
-        recycler.setAdapter(new AAdapter(this,list));
+        aAdapter = new AAdapter(this, list);
+        recycler.setAdapter(aAdapter);
 
         recycler.setOnItemClickListener(new NRecyclerView.OnItemClickListener() {
             @Override
@@ -41,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*
-        View header = LayoutInflater.from(this).inflate(R.layout.header, null);
+        View view = findViewById(R.id.tv_no);
+        recycler.setEmptyView(view);
+
+      /*  View header = LayoutInflater.from(this).inflate(R.layout.header, null);
         View header1 = LayoutInflater.from(this).inflate(R.layout.header, null);
         View header2 = LayoutInflater.from(this).inflate(R.layout.header, null);
         View footer = LayoutInflater.from(this).inflate(R.layout.footer, null);
@@ -74,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         recycler.addFooterView(footer);
     }
 
+    public void empty(View view) {
+        list.clear();
+        /*list.remove(0);
+        list.remove(1);*/
+
+        aAdapter.notifyDataSetChanged();
+
+    }
 
 
 }

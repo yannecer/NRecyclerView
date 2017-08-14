@@ -5,12 +5,13 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/8/8.
  */
 
 public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
 
     private SparseArray mHeaderSparseArray;
     private SparseArray mFooterSparseArray;
@@ -71,7 +72,6 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-
         int numHeaders = mHeaderSparseArray.size();
         if (position < numHeaders) {
             return mHeaderSparseArray.keyAt(position);
@@ -91,5 +91,7 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
         }
     }
+
+
 }
 
