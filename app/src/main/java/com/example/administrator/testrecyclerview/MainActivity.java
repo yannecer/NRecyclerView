@@ -2,18 +2,18 @@ package com.example.administrator.testrecyclerview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.example.administrator.testrecyclerview.adapter.AAdapter;
-import com.google.gson.Gson;
 import com.necer.nrecyclerview.*;
+import com.necer.nrecyclerview.Logg;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,15 +24,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recycler = (NRecyclerView) findViewById(R.id.recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+       // recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setLayoutManager(new GridLayoutManager(this, 5));
+      //  recycler.setLayoutManager(new StaggeredGridLayoutManager( 3,h));
         List<String> list = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 40; i++) {
             list.add("iii::" + i);
         }
-
         recycler.setAdapter(new AAdapter(this,list));
 
+        recycler.setOnItemClickListener(new NRecyclerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+                Logg.d("positionposition:::" + position);
+            }
+        });
+
+/*
         View header = LayoutInflater.from(this).inflate(R.layout.header, null);
         View header1 = LayoutInflater.from(this).inflate(R.layout.header, null);
         View header2 = LayoutInflater.from(this).inflate(R.layout.header, null);
@@ -47,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         recycler.addFooterView(footer);
         recycler.addFooterView(footer1);
-        recycler.addFooterView(footer2);
-
-
+        recycler.addFooterView(footer2);*/
 
     }
 
@@ -62,12 +69,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void footer(View view) {
         View footer = LayoutInflater.from(this).inflate(R.layout.footer, null);
-
         TextView tv_footer = (TextView) footer.findViewById(R.id.tv_footer);
         tv_footer.setText("脚部：：" + recycler.getFooterViewCount());
-
         recycler.addFooterView(footer);
     }
+
 
 
 }

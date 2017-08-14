@@ -1,14 +1,9 @@
 package com.necer.nrecyclerview;
 
-import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/8.
@@ -19,8 +14,8 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private SparseArray mHeaderSparseArray;
     private SparseArray mFooterSparseArray;
-
     private RecyclerView.Adapter mAdapter;
+    private NRecyclerView mNRecyclerView;
 
 
     public HeadFootAdapter(SparseArray headerSparseArray, SparseArray footerSparseArray, RecyclerView.Adapter adapter) {
@@ -31,8 +26,14 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.mNRecyclerView = (NRecyclerView) recyclerView;
 
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (mHeaderSparseArray.get(viewType) != null) {
             View headerView = (View) mHeaderSparseArray.get(viewType);
@@ -49,9 +50,17 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (!(holder instanceof HeadFootViewHolder)) {
             mAdapter.onBindViewHolder(holder, position - mHeaderSparseArray.size());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mNRecyclerView.getOnItemClickListener() != null) {
+                        mNRecyclerView.getOnItemClickListener().onItemClick(mNRecyclerView, holder.itemView, position - mHeaderSparseArray.size());
+                    }
+                }
+            });
         }
     }
 
@@ -71,10 +80,7 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             return mAdapter.getItemViewType(position - numHeaders);
         }
-
     }
-
-
 
     private ViewGroup.LayoutParams getLayoutParams() {
         return new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
