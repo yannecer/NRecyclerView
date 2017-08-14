@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void header(View view) {
         View header = LayoutInflater.from(this).inflate(R.layout.header, null);
-
         TextView tv_header = (TextView) header.findViewById(R.id.tv_header);
         tv_header.setText("头部：：" + recycler.getHeaderViewCount());
         recycler.addHeaderView(header);
@@ -88,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
         aAdapter.notifyDataSetChanged();
 
+    }
+
+    public void add(View view) {
+        list.add("34345");
+        aAdapter.notifyDataSetChanged();
     }
 
 
