@@ -22,15 +22,12 @@ import android.widget.TextView;
 public class NRecyclerView extends RecyclerView{
 
     private Adapter mAdapter;
-    private Adapter mOldAdapter;
+    private Adapter mInnerAdapter;
     private SparseArray mHeaderSparseArray;
     private SparseArray mFooterSparseArray;
     private static final int ITEM_VIEW_TYPE_HEADER_INDEX = 10000000;
     private static final int ITEM_VIEW_TYPE_FOOTER_INDEX = 20000000;
-
-
     private View mEmptyView;
-
 
     public NRecyclerView(Context context) {
         super(context);
@@ -50,8 +47,8 @@ public class NRecyclerView extends RecyclerView{
     private AdapterDataObserver dataObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {
-            if (mEmptyView != null && mOldAdapter!= null) {
-                boolean emptyViewVisible = mOldAdapter.getItemCount() == 0;
+            if (mEmptyView != null && mInnerAdapter!= null) {
+                boolean emptyViewVisible = mInnerAdapter.getItemCount() == 0;
                 mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
                 setVisibility(emptyViewVisible ? GONE : VISIBLE);
             }
@@ -62,7 +59,6 @@ public class NRecyclerView extends RecyclerView{
     private void init() {
         mHeaderSparseArray = new SparseArray();
         mFooterSparseArray = new SparseArray();
-
     }
 
     public void addHeaderView(View headerView) {
@@ -79,14 +75,14 @@ public class NRecyclerView extends RecyclerView{
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (mOldAdapter != null) {
-            mOldAdapter.unregisterAdapterDataObserver(dataObserver);
+        if (mInnerAdapter != null) {
+            mInnerAdapter.unregisterAdapterDataObserver(dataObserver);
         }
-        this.mOldAdapter = adapter;
+        this.mInnerAdapter = adapter;
         mAdapter = new HeadFootAdapter(mHeaderSparseArray, mFooterSparseArray, adapter);
         super.setAdapter(mAdapter);
 
-        mOldAdapter.registerAdapterDataObserver(dataObserver);
+        mInnerAdapter.registerAdapterDataObserver(dataObserver);
         dataObserver.onChanged();
     }
 
@@ -99,7 +95,7 @@ public class NRecyclerView extends RecyclerView{
                 @Override
                 public int getSpanSize(int position) {
                     int spanCount = gridLayoutManager.getSpanCount();
-                    if (position < mHeaderSparseArray.size() || position >= (mHeaderSparseArray.size() + mOldAdapter.getItemCount())) {
+                    if (position < mHeaderSparseArray.size() || position >= (mHeaderSparseArray.size() + mInnerAdapter.getItemCount())) {
                         return spanCount;
                     } else {
                         return 1;
