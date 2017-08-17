@@ -1,0 +1,4 @@
+# NRecyclerView
+装饰者模式添加头部和脚部，使用方法和ListView完全一样，
+通过装饰者模式，添加一个HeadFootAdapter处理头部、脚部，
+把功能都封装进了RecyclerView，不对Adapter做任何修改
