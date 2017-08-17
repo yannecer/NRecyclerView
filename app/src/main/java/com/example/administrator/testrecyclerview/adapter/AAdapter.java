@@ -37,8 +37,6 @@ public class AAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         ItemViewHolder holder1 = (ItemViewHolder) holder;
         holder1.textView.setText(">>>>>"+list.get(position));
-
-
     }
 
     @Override

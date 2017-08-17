@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="?attr/selectableItemBackground"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_"
+        android:id="@+id/tv_refresh"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="sdfadfadsf"
-        android:background="@color/colorAccent"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="#ff0055"
+        android:text="下拉刷新"/>
 
 </LinearLayout>

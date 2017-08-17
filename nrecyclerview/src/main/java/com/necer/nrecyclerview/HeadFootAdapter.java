@@ -18,6 +18,7 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private RecyclerView.Adapter mAdapter;
     private NRecyclerView mNRecyclerView;
 
+    public static final int ITEM_VIEW_TYPE_REFRESH_INDEX = 30000000;
 
     public HeadFootAdapter(SparseArray headerSparseArray, SparseArray footerSparseArray, RecyclerView.Adapter adapter) {
         this.mHeaderSparseArray = headerSparseArray;
@@ -30,12 +31,10 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         this.mNRecyclerView = (NRecyclerView) recyclerView;
-
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         if (mHeaderSparseArray.get(viewType) != null) {
             View headerView = (View) mHeaderSparseArray.get(viewType);
             headerView.setLayoutParams(getLayoutParams());
@@ -47,7 +46,6 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             return mAdapter.onCreateViewHolder(parent, viewType);
         }
-
     }
 
     @Override
@@ -72,7 +70,8 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        int numHeaders = mHeaderSparseArray.size();
+
+        int numHeaders = mHeaderSparseArray.size() ;
         if (position < numHeaders) {
             return mHeaderSparseArray.keyAt(position);
         } else if (position >= (numHeaders + mAdapter.getItemCount())) {

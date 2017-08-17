@@ -1,5 +1,7 @@
 package com.necer.nrecyclerview;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
@@ -8,15 +10,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewParent;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.TextView;
 
 /**
- * Created by Administrator on 2017/8/8.
+ * Created by 闫彬彬 on 2017/8/8.
  */
 
 public class NRecyclerView extends RecyclerView{
@@ -28,7 +28,9 @@ public class NRecyclerView extends RecyclerView{
     private static final int ITEM_VIEW_TYPE_HEADER_INDEX = 10000000;
     private static final int ITEM_VIEW_TYPE_FOOTER_INDEX = 20000000;
 
+
     private View mEmptyView;
+
 
     public NRecyclerView(Context context) {
         super(context);
@@ -60,6 +62,7 @@ public class NRecyclerView extends RecyclerView{
     private void init() {
         mHeaderSparseArray = new SparseArray();
         mFooterSparseArray = new SparseArray();
+
     }
 
     public void addHeaderView(View headerView) {

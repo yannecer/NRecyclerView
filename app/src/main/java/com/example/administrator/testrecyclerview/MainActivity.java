@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
        // recycler.setLayoutManager(new GridLayoutManager(this, 5));
         list = new ArrayList<>();
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 50; i++) {
             list.add("iii::" + i);
         }
         aAdapter = new AAdapter(this, list);
