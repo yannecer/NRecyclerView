@@ -1,25 +1,18 @@
 package com.necer.nrecyclerview;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 /**
  * Created by 闫彬彬 on 2017/8/8.
  */
 
-public class NRecyclerView extends RecyclerView{
+public class NRecyclerView extends RecyclerView {
 
     private Adapter mAdapter;
     private Adapter mInnerAdapter;
@@ -47,7 +40,7 @@ public class NRecyclerView extends RecyclerView{
     private AdapterDataObserver dataObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {
-            if (mEmptyView != null && mInnerAdapter!= null) {
+            if (mEmptyView != null && mInnerAdapter != null) {
                 boolean emptyViewVisible = mInnerAdapter.getItemCount() == 0;
                 mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
                 setVisibility(emptyViewVisible ? GONE : VISIBLE);
@@ -62,7 +55,7 @@ public class NRecyclerView extends RecyclerView{
     }
 
     public void addHeaderView(View headerView) {
-        mHeaderSparseArray.put(mHeaderSparseArray.size()+ITEM_VIEW_TYPE_HEADER_INDEX,headerView);
+        mHeaderSparseArray.put(mHeaderSparseArray.size() + ITEM_VIEW_TYPE_HEADER_INDEX, headerView);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -109,6 +102,7 @@ public class NRecyclerView extends RecyclerView{
     public int getHeaderViewCount() {
         return mHeaderSparseArray.size();
     }
+
     public int getFooterViewCount() {
         return mFooterSparseArray.size();
     }
@@ -125,6 +119,7 @@ public class NRecyclerView extends RecyclerView{
 
 
     private OnItemClickListener mOnItemClickListener;
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
@@ -137,4 +132,31 @@ public class NRecyclerView extends RecyclerView{
         void onItemClick(RecyclerView recyclerView, View itemView, int position);
     }
 
+
+    public void removeHeaderView(View view) {
+        if (mHeaderSparseArray.size() > 0) {
+            for (int i = 0; i < mHeaderSparseArray.size(); i++) {
+                int key = mHeaderSparseArray.keyAt(i);
+                View headerView = (View) mHeaderSparseArray.get(key);
+                if (view == headerView) {
+                    mHeaderSparseArray.remove(key);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+    }
+    public void removeFooterView(View view) {
+        if (mFooterSparseArray.size() > 0) {
+            for (int i = 0; i < mFooterSparseArray.size(); i++) {
+                int key = mFooterSparseArray.keyAt(i);
+                View headerView = (View) mFooterSparseArray.get(key);
+                if (view == headerView) {
+                    mFooterSparseArray.remove(key);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -67,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private View headerView;
     public void header(View view) {
-        View header = LayoutInflater.from(this).inflate(R.layout.header, null);
-        TextView tv_header = (TextView) header.findViewById(R.id.tv_header);
+       // View header = LayoutInflater.from(this).inflate(R.layout.header, null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header, null);
+        TextView tv_header = (TextView) headerView.findViewById(R.id.tv_header);
         tv_header.setText("头部：：" + recycler.getHeaderViewCount());
-        recycler.addHeaderView(header);
+        recycler.addHeaderView(headerView);
     }
     public void footer(View view) {
         View footer = LayoutInflater.from(this).inflate(R.layout.footer, null);
@@ -92,6 +95,17 @@ public class MainActivity extends AppCompatActivity {
     public void add(View view) {
         list.add("34345");
         aAdapter.notifyDataSetChanged();
+    }
+
+    public void removeHeaderView(View view) {
+      //  RecyclerView.Adapter adapter = recycler.getAdapter();
+
+       // Logg.d("adapter:::" + adapter);
+
+        recycler.removeHeaderView(headerView);
+
+        Logg.d("recycler::" + recycler.getHeaderViewCount());
+
     }
 
 

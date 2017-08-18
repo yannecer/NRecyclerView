@@ -27,6 +27,11 @@
         android:layout_height="wrap_content"
         android:onClick="add"
         android:text="add" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="removeHeaderView"
+        android:text="removeHeaderView" />
 
     <RelativeLayout
         android:layout_width="match_parent"
