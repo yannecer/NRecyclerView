@@ -118,6 +118,7 @@ public class NRecyclerView extends RecyclerView {
     }
 
 
+/*
     private OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -131,6 +132,7 @@ public class NRecyclerView extends RecyclerView {
     public interface OnItemClickListener {
         void onItemClick(RecyclerView recyclerView, View itemView, int position);
     }
+*/
 
 
     public void removeHeaderView(View view) {

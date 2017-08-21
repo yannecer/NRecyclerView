@@ -16,9 +16,7 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private SparseArray mHeaderSparseArray;
     private SparseArray mFooterSparseArray;
     private RecyclerView.Adapter mAdapter;
-    private NRecyclerView mNRecyclerView;
 
-    public static final int ITEM_VIEW_TYPE_REFRESH_INDEX = 30000000;
 
     public HeadFootAdapter(SparseArray headerSparseArray, SparseArray footerSparseArray, RecyclerView.Adapter adapter) {
         this.mHeaderSparseArray = headerSparseArray;
@@ -27,11 +25,13 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+/*
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         this.mNRecyclerView = (NRecyclerView) recyclerView;
     }
+*/
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,14 +52,6 @@ public class HeadFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (!(holder instanceof HeadFootViewHolder)) {
             mAdapter.onBindViewHolder(holder, position - mHeaderSparseArray.size());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mNRecyclerView.getOnItemClickListener() != null) {
-                        mNRecyclerView.getOnItemClickListener().onItemClick(mNRecyclerView, holder.itemView, position - mHeaderSparseArray.size());
-                    }
-                }
-            });
         }
     }
 
