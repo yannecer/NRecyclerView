@@ -1,5 +1,6 @@
 package com.example.administrator.testrecyclerview;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         aAdapter = new AAdapter(this, list);
         recycler.setAdapter(aAdapter);
 
-        recycler.setOnItemClickListener(new NRecyclerView.OnItemClickListener() {
+    /*    recycler.setOnItemClickListener(new NRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
                 Logg.d("positionposition:::" + position);
             }
-        });
+        });*/
 
         View view = findViewById(R.id.tv_no);
         recycler.setEmptyView(view);
@@ -106,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
         Logg.d("recycler::" + recycler.getHeaderViewCount());
 
+    }
+
+    public void load(View view) {
+        startActivity(new Intent(this, LoadActivity.class));
     }
 
 
