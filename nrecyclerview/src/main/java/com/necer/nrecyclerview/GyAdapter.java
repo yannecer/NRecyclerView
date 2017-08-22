@@ -56,7 +56,6 @@ public abstract class GyAdapter<T> extends RecyclerView.Adapter<NRecyclerViewHol
     @Override
     public void onBindViewHolder(NRecyclerViewHolder holder, int position) {
 
-
         if (getItemViewType(position) != HEADER_INDEX && getItemViewType(position) != FOOTER_INDEX) {
             int i = position - (headerView == null ? 0 : 1);
             onBindData(holder, dataList.get(i), i);
