@@ -6,11 +6,11 @@ import android.view.View;
 /**
  * Created by necer on 2016/8/12.
  */
-public class NRecyclerViewHolder extends RecyclerView.ViewHolder{
+public class NViewHolder extends RecyclerView.ViewHolder{
     private SparseArray<View> mViews;
     private View mItemView;
 
-    public NRecyclerViewHolder(View itemView) {
+    public NViewHolder(View itemView) {
         super(itemView);
         mItemView = itemView;//这个是item的布局文件，layout
         mViews = new SparseArray<>();

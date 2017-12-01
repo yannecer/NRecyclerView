@@ -16,8 +16,8 @@ public class NRecyclerView extends RecyclerView {
 
     private Adapter mAdapter;
     private Adapter mInnerAdapter;
-    private SparseArray mHeaderSparseArray;
-    private SparseArray mFooterSparseArray;
+    protected SparseArray mHeaderSparseArray;
+    protected SparseArray mFooterSparseArray;
     private static final int ITEM_VIEW_TYPE_HEADER_INDEX = 10000000;
     private static final int ITEM_VIEW_TYPE_FOOTER_INDEX = 20000000;
     private View mEmptyView;
@@ -55,12 +55,18 @@ public class NRecyclerView extends RecyclerView {
     }
 
     public void addHeaderView(View headerView) {
+        if (mAdapter == null) {
+            throw new RuntimeException("添加头布局要在setAdapter之后！");
+        }
         mHeaderSparseArray.put(mHeaderSparseArray.size() + ITEM_VIEW_TYPE_HEADER_INDEX, headerView);
         mAdapter.notifyDataSetChanged();
     }
 
 
     public void addFooterView(View footerView) {
+        if (mAdapter == null) {
+            throw new RuntimeException("添加脚布局要在setAdapter之后！");
+        }
         mFooterSparseArray.put(mFooterSparseArray.size() + ITEM_VIEW_TYPE_FOOTER_INDEX, footerView);
         mAdapter.notifyDataSetChanged();
     }
@@ -118,21 +124,7 @@ public class NRecyclerView extends RecyclerView {
     }
 
 
-/*
-    private OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return mOnItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(RecyclerView recyclerView, View itemView, int position);
-    }
-*/
 
 
     public void removeHeaderView(View view) {
